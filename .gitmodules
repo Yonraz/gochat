@@ -7,3 +7,6 @@
 [submodule "client"]
 	path = client
 	url = https://github.com/Yonraz/gochat_client
+[submodule "socket_handler"]
+	path = socket_handler
+	url = https://github.com/Yonraz/gochat_sockethandler.git
