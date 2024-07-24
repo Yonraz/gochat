@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: users-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: users
+  template:
+    metadata:
+      labels:
+        app: users
+    spec:
+      containers:
+        - name: users
+          image: yonraz/gochat-users
+          ports:
+            - containerPort: 3000
+          env:
+            - name: JWT_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret
+                  key: JWT_KEY
+            - name: DB_HOST
+              value: "users-postgres-srv"
+            - name: DB_PORT
+              value: "5432"
+            - name: DB_USER
+              value: "gochat_users"
+            - name: DB_PASSWORD
+              value: "password"
+            - name: DB_NAME
+              value: "users"
+            - name: RMQ_USER
+              value: "admin"
+            - name: RMQ_PASSWORD
+              value: "password"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: users-srv
+spec:
+  selector:
+    app: users
+  ports:
+    - name: users
+      protocol: TCP
+      port: 3000
+      targetPort: 3000

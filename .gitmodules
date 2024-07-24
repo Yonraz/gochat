@@ -1,0 +1,9 @@
+[submodule "auth"]
+	path = auth
+	url = https://github.com/Yonraz/gochat_auth
+[submodule "users"]
+	path = users
+	url = https://github.com/Yonraz/gochat_users
+[submodule "client"]
+	path = client
+	url = https://github.com/Yonraz/gochat_client
