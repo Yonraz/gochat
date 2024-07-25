@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: socket-handler-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: socket-handler
+  template:
+    metadata:
+      labels:
+        app: socket-handler
+    spec:
+      containers:
+        - name: socket-handler
+          image: yonraz/gochat-socket-handler
+          ports:
+            - containerPort: 3000
+          env:
+            - name: JWT_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret
+                  key: JWT_KEY
+            - name: REDIS_HOST
+              value: "redis-srv:6379"
+            - name: REDIS_PASSWORD
+              value: ""
+            - name: RMQ_USER
+              value: "admin"
+            - name: RMQ_PASSWORD
+              value: "password"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: socket-handler-srv
+spec:
+  selector:
+    app: socket-handler
+  ports:
+    - name: socket-handler
+      protocol: TCP
+      port: 3000
+      targetPort: 3000
