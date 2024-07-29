@@ -10,3 +10,6 @@
 [submodule "socket_handler"]
 	path = socket_handler
 	url = https://github.com/Yonraz/gochat_sockethandler.git
+[submodule "notifications"]
+	path = notifications
+	url = https://github.com/Yonraz/gochat_notifications.git
