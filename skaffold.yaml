@@ -26,6 +26,14 @@ build:
             dest: .
       docker:
         dockerfile: Dockerfile
+    - image: yonraz/gochat-notifications
+      context: notifications
+      sync:
+        manual:
+          - src: "**/*.go"
+            dest: .
+      docker:
+        dockerfile: Dockerfile
     - image: yonraz/gochat-client
       context: client
       sync:

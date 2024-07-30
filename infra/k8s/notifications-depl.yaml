@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: notifications-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: notifications
+  template:
+    metadata:
+      labels:
+        app: notifications
+    spec:
+      containers:
+        - name: notifications
+          image: yonraz/gochat-notifications
+          ports:
+            - containerPort: 3000
+          env:
+            - name: JWT_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret
+                  key: JWT_KEY
+            - name: REDIS_HOST
+              value: "redis-srv:6379"
+            - name: REDIS_PASSWORD
+              value: ""
+            - name: RMQ_USER
+              value: "admin"
+            - name: RMQ_PASSWORD
+              value: "password"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: notifications-srv
+spec:
+  selector:
+    app: notifications
+  ports:
+    - name: notifications
+      protocol: TCP
+      port: 3000
+      targetPort: 3000
