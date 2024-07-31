@@ -33,6 +33,10 @@ spec:
               value: "password"
             - name: DB_NAME
               value: "users"
+            - name: REDIS_HOST
+              value: "redis-srv:6379"
+            - name: REDIS_PASSWORD
+              value: ""
             - name: RMQ_USER
               value: "admin"
             - name: RMQ_PASSWORD
