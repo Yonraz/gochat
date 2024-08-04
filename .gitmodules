@@ -13,3 +13,6 @@
 [submodule "notifications"]
 	path = notifications
 	url = https://github.com/Yonraz/gochat_notifications.git
+[submodule "messages"]
+	path = messages
+	url = https://github.com/Yonraz/gochat_messages.git

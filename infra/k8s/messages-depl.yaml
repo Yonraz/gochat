@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: messages-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: messages
+  template:
+    metadata:
+      labels:
+        app: messages
+    spec:
+      containers:
+        - name: messages
+          image: yonraz/gochat-messages
+          ports:
+            - containerPort: 3000
+          env:
+            - name: JWT_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret
+                  key: JWT_KEY
+            - name: DB_HOST
+              value: "messages-postgres-srv"
+            - name: DB_PORT
+              value: "5432"
+            - name: DB_USER
+              value: "gochat_messages"
+            - name: DB_PASSWORD
+              value: "password"
+            - name: DB_NAME
+              value: "messages"
+            - name: REDIS_HOST
+              value: "redis-srv:6379"
+            - name: REDIS_PASSWORD
+              value: ""
+            - name: RMQ_USER
+              value: "admin"
+            - name: RMQ_PASSWORD
+              value: "password"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: messages-srv
+spec:
+  selector:
+    app: messages
+  ports:
+    - name: messages
+      protocol: TCP
+      port: 3000
+      targetPort: 3000

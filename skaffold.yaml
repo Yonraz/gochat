@@ -18,6 +18,14 @@ build:
             dest: .
       docker:
         dockerfile: Dockerfile
+    - image: yonraz/gochat-messages
+      context: messages
+      sync:
+        manual:
+          - src: "**/*.go"
+            dest: .
+      docker:
+        dockerfile: Dockerfile
     - image: yonraz/gochat-socket-handler
       context: socket_handler
       sync:
@@ -55,4 +63,5 @@ manifests:
     - ./infra/k8s/auth-psql-init-config.yaml
     - ./infra/k8s/auth-psql-depl.yaml
     - ./infra/k8s/users-psql-depl.yaml
+    - ./infra/k8s/messages-psql-depl.yaml
     - ./infra/k8s/*

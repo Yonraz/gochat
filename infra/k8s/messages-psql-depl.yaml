@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: messages-postgres-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: messages-postgres
+  template:
+    metadata:
+      labels:
+        app: messages-postgres
+    spec:
+      containers:
+        - name: messages-postgres
+          image: postgres:latest
+          env:
+            - name: POSTGRES_USER
+              value: "gochat_messages"
+            - name: POSTGRES_PASSWORD
+              value: "password"
+            - name: POSTGRES_DB
+              value: "messages"
+          ports:
+            - containerPort: 5432
+          volumeMounts:
+            - name: initdb
+              mountPath: /docker-entrypoint-initdb.d
+      volumes:
+        - name: initdb
+          configMap:
+            name: postgres-init-config
+            items:
+              - key: init.sql
+                path: init.sql
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: messages-postgres-srv
+spec:
+  selector:
+    app: messages-postgres
+  ports:
+    - protocol: TCP
+      port: 5432
+      targetPort: 5432
