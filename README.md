@@ -94,7 +94,6 @@ Build Docker Images
 2. **Navigate to each service directory and build the Docker images:**
 
 ```sh
-Copy code
 cd auth
 docker build -t yonraz/gochat-auth .
 
