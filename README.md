@@ -149,21 +149,21 @@ The app is based on a microservices architecture, where each main feature has it
 
 ### RabbitMQ
 
-I've worked with **Apache Kafka** for microservice communication before and enjoyed it. For this project, I chose RabbitMQ due to its scalability and lighter weight. Currently, the RabbitMQ broker holds two exchanges:
+I've worked with **Apache Kafka** for microservice communication before and enjoyed it. For this project, I chose RabbitMQ due to its lighter weight. Currently, the RabbitMQ broker holds two exchanges:
 
 - **UserEventsExchange**
 
-  - **Queues:**
+  - **Routing keys:**
     - UserLoggedIn
     - UserRegistered
     - UserSignedOut
 
 - **MessageEventsExchange**
-  - **Queues:**
+  - **Routing keys:**
     - MessageSent
     - MessageRead
 
-These queues and exchanges enable separation of concerns between user events and chat events.
+These keys and exchanges enable separation of concerns between user events and chat events - when two or more services want to listen to the same event, they bind their own queue to the relevant routing key. this ensures that there's no round-robin-ing of messages and all services consume all of the messages they need.
 
 ### Backend Services
 
