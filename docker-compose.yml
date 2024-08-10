@@ -1,0 +1,77 @@
+services:
+  auth:
+    build:
+      context: ./auth
+      dockerfile: Dockerfile
+    image: yonraz/gochat-auth
+    ports:
+      - "3001:3000"
+    environment:
+      - JWT_KEY=your-secret-jwt-key
+      # other environment variables
+
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    image: yonraz/gochat-client
+    ports:
+      - "80:80"
+    environment:
+      - VITE_API_BASE_URL=https://ag.dev
+      - WS_BASE_URL=wss://ag.dev
+
+  messages:
+    build:
+      context: ./messages
+      dockerfile: Dockerfile
+    image: yonraz/gochat-messages
+    ports:
+      - "3002:3000"
+    environment:
+      - JWT_KEY=your-secret-jwt-key
+      # other environment variables
+
+  notifications:
+    build:
+      context: ./notifications
+      dockerfile: Dockerfile
+    image: yonraz/gochat-notifications
+    ports:
+      - "3003:3000"
+    environment:
+      - JWT_KEY=your-secret-jwt-key
+      # other environment variables
+
+  socket-handler:
+    build:
+      context: ./socket_handler
+      dockerfile: Dockerfile
+    image: yonraz/gochat-socket-handler
+    ports:
+      - "3004:3000"
+    environment:
+      - JWT_KEY=your-secret-jwt-key
+      # other environment variables
+
+  users:
+    build:
+      context: ./users
+      dockerfile: Dockerfile
+    image: yonraz/gochat-users
+    ports:
+      - "3005:3000"
+    environment:
+      - JWT_KEY=your-secret-jwt-key
+      # other environment variables
+
+  redis:
+    image: redis:6.2.6
+    ports:
+      - "6379:6379"
+
+  rabbitmq:
+    image: rabbitmq:3.13.6
+    ports:
+      - "5672:5672"
+      - "15672:15672"

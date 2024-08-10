@@ -14,6 +14,6 @@ spec:
     port: 15672
     targetPort: 15672
     protocol: TCP
-  clusterIP: None  # Important for StatefulSet to work properly
+  clusterIP: None  
   selector:
     app: rabbitmq
