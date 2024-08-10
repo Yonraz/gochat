@@ -20,7 +20,7 @@ GoChat is a messaging application designed to explore Go as a backend language w
   - Database pagination.
     
 🚀 **Front-end Optimizations**:
-  - Virtual scrolling
+  - Virtual scrolling for lightweight rendering of conversations with a large amount of messages
 
 ## Technologies
 
