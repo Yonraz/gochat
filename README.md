@@ -2,7 +2,7 @@
 
 #### _Messaging app written in Go_
 
-GoChat is a messaging application designed to explore Go as a backend language within a microservices architecture. This app is built with an **event-driven** architecture on top of **Docker** and **Kubernetes**. All backend services are written in Go and utilize **RabbitMQ** for inter-service communication. The frontend is developed using **React** and **TypeScript**, with **Redux** for state management.
+GoChat is a messaging application designed to explore Go as a backend language within a microservices architecture. This app is built with an **event-driven** architecture on top of **Docker** and **Kubernetes**. All backend services are written in Go and utilize **RabbitMQ** for microservices communication. The frontend is developed using **React** and **TypeScript**, with **Redux** for state management.
 
 ## Features
 
@@ -20,7 +20,7 @@ GoChat is a messaging application designed to explore Go as a backend language w
   - Database pagination.
     
 🚀 **Front-end Optimizations**:
-  - Virtual scrolling
+  - Virtual scrolling for lightweight rendering of conversations with a large amount of messages
 
 ## Technologies
 
